@@ -1,0 +1,52 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+
+}
+.containCard{
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.card{
+    width: 250px;
+    height: 530px;
+    position: relative;
+    border:2px solid black;
+    padding: 10px;
+}
+.card >img{
+    
+    width: 100%;
+    height: auto;
+}
+
+.card .description{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 100%;
+}
+    .description:hover{
+        white-space: normal;
+        position:fixed;
+        width: 100vw;
+        background-color: burlywood;
+        z-index: 2;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    
+    }
+
+
+.card .deletButton{
+position: absolute;
+top: 10px;
+right: 10px;
+}
