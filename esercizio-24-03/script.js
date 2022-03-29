@@ -1,4 +1,4 @@
-import { getMoviesData, patchMoviesData, deleteMoviesData, postMoviesData } from "./api.js";
+import { getMoviesData, postMoviesData, patchMoviesData, deleteMoviesData } from "./api.js";
 import { createCard } from "./utility.js";
 
 const myApp = async () => {
@@ -6,19 +6,19 @@ const myApp = async () => {
   const container = document.querySelector(".containCard");
 
   const inputTitle = document.getElementById("title");
-  const inputDescription = document.getElementById("description");
   const inputPoster = document.getElementById("poster");
+  const inputDescription = document.getElementById("description");
   const inputYear = document.getElementById("year");
   const inputCategories = document.getElementById("categories");
 
   const cardsToString = movies
     .map((movie) =>
       createCard(
-        movie.title || "",
-        movie.description || "",
-        movie.poster || "",
-        movie.year || "",
-        movie.id || ""
+        movie.id,
+        movie.title,
+        movie.poster,
+        movie.description,
+        movie.year
       )
     )
     .join("");
@@ -29,24 +29,25 @@ const myApp = async () => {
     .addEventListener("click", () =>
       postMoviesData(
         inputTitle.value,
+        inputPoster.value,
         inputDescription.value,
         inputCategories.value,
-        inputPoster.value,
-        inputYear.value,
-
+        inputYear.value
       )
     );
+
   movies.forEach((element) => {
     document
       .querySelector(`#patchCard${element.id}`)
       .addEventListener("click", () =>
         patchMoviesData(
+          element.id,
           inputTitle.value,
+          inputPoster.value,
           inputDescription.value,
           inputCategories.value,
-          inputPoster.value,
           inputYear.value,
-          element.id
+
         )
       );
 
@@ -55,14 +56,16 @@ const myApp = async () => {
       .addEventListener("click", () => deleteMoviesData(element.id));
   });
 
-  const cardImg = document.querySelector("img");
-  const deleteCard = document.querySelector("deleteCard");
-  const patchCard = document.querySelector("patchCard");
+  const card = document.querySelector("#card");
+  const cardImg = document.querySelector("#cardImg");
+
+  const patch_delete = document.querySelector(".patch_delete");
+
   cardImg.addEventListener("click", () => {
     card.classList.toggle("cardEffect")
     card.classList.toggle("card")
-    deleteCard.classList.toggle("d_none");
-    patchCard.classList.toggle("d_none");
+    patch_delete.classList.toggle("d_none");
+
   })
 
 };

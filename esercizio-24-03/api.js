@@ -11,24 +11,27 @@ export const getMoviesData = async () => {
 
 
 export const postMoviesData = async (
+  id,
   title,
+  poster,
   description,
   genres,
-  poster,
-  year,
-  id
+  year
+
 ) => {
-  await fetch(`https://edgemony-backend.herokuapp.com/movies`, {
+  await fetch(`https://edgemony-backend.herokuapp.com/movies/${id}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
+
+      title,
+      poster,
       description,
       genres,
-      poster,
-      title,
       year,
+      id
     }),
   });
 
@@ -37,12 +40,13 @@ export const postMoviesData = async (
 
 
 export const patchMoviesData = async (
+  id,
   title,
+  poster,
   description,
   genres,
-  poster,
   year,
-  id
+
 ) => {
   await fetch(`https://edgemony-backend.herokuapp.com/movies/${id}`, {
     method: "PATCH",
@@ -50,11 +54,11 @@ export const patchMoviesData = async (
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
+      title,
+      poster,
       description,
       genres,
-      poster,
-      title,
-      year,
+      year
     }),
   });
 
