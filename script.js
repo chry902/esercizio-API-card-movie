@@ -136,16 +136,24 @@ All'esercizio cui sopra, provare ad aggiungere una modale al
 
 
 
-const createCard = (title, desc, imgUrl, year, id) => {
+const createCard = (title, desc, imgUrl, year, id,) => {
+
   const divEl = document.createElement("div");
   const h3El = document.createElement("h3");
   const parDescEl = document.createElement("p");
   const imgEl = document.createElement("img");
   const parYearEl = document.createElement("p");
+
+
   const deletButton = document.createElement("button")
   deletButton.classList.add("deletButton")
 
-  // deletButton.setAttribute("onclick", "deletButton(this)");
+  const patchButton = document.createElement("button")
+  patchButton.classList.add("patchButton")
+
+
+  // patchButton.document.createElement("button")
+  // patchButton.classList.add("patchButton")
 
   deletButton.addEventListener("click", () => {
 
@@ -163,6 +171,33 @@ const createCard = (title, desc, imgUrl, year, id) => {
 
 
 
+  const inputTitle = document.getElementById("title");
+  const inputDescription = document.getElementById("description");
+  const inputPoster = document.getElementById("poster");
+  const inputYear = document.getElementById("year");
+  const inputCategories = document.getElementById("categories");
+  patchButton.addEventListener("click", (event) => {
+    event.preventDefault();
+
+    fetch(`https://edgemony-backend.herokuapp.com/movies/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        description: inputDescription.value,
+        genres: inputCategories.value,
+        poster: inputPoster.value,
+        title: inputTitle.value,
+        year: inputYear.value,
+      })
+
+    }).then((data) => {
+      location.reload();
+    })
+  });
+
+
   divEl.classList.add("card");
   parYearEl.classList.add("year");
   parDescEl.classList.add("description");
@@ -172,11 +207,16 @@ const createCard = (title, desc, imgUrl, year, id) => {
   h3El.textContent = title;
   parDescEl.textContent = desc;
   parYearEl.textContent = year;
-  deletButton.textContent = id;
+
+  // deletButton.textContent = id;
 
 
 
-  divEl.append(imgEl, h3El, parDescEl, parYearEl, deletButton,);
+
+
+
+
+  divEl.append(imgEl, h3El, parDescEl, parYearEl, deletButton, patchButton);
   document.querySelector(".containCard").appendChild(divEl);
 };
 
@@ -198,6 +238,13 @@ const inputCategories = document.getElementById("categories");
 const inputSubmit = document.getElementById("submit");
 //prendiamo i valori dagli input, creiamo la nostra
 //card da mandare al server.
+
+
+
+
+const patchButton = document.createElement("button")
+patchButton.classList.add("patchButton")
+
 
 
 
